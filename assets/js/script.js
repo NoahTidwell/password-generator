@@ -5,12 +5,6 @@ var num = "1234567890"
 var symb = "~!@#$%^&*()-_=+[]{};:',./<>?"
 var chars = "";
 
-// Reset Password
-function reset() {
-  var passwordText = document.querySelector("#password");
-  passwordText.value = password
-}
-
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
