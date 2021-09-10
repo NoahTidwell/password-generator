@@ -1,9 +1,8 @@
 // Assignment code here
-var upchar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-var lowchar = "abcdefghijklmnopqrstuvwxyz"
-var num = "1234567890"
-var symb = "~!@#$%^&*()-_=+[]{};:',./<>?"
-var chars = "";
+const UPPERCASE_CHAR_CODES = fromLowToHigh(65, 90)
+const lowercase_char_codes = fromLowToHigh(97, 122)
+const number_char_codes = fromLowToHigh(48, 57)
+const symbol_char_codes = fromLowToHigh(33, 47).concat(fromLowToHigh(58, 64))
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -13,44 +12,19 @@ function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
-
+  passwordText.innherText = password;
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
- // Add special characters to string
-
- function addSpecial() {
-  if (symbols === true) {
-
-  }
-}
-
-// Add number character to string
-function number() {
-if (numbers === true) {
-  
-  }
-}
-
-// Add lowercase letters to string
-function addLower() {
-  if (lowercase === true) {
-    
-  }
-}
-
-// Add uppercase letters to string
-function addUpper() {
-  if (uppercase === true) {
-    
-  }
-}
 
 // Generate password Logic based on character Input
-function generatePassword() {
+function generatePassword(pwdLength, uppercase, lowercase, numbers, symbols) {
+  let charCodes = lowercase_char_codes
+  if(uppercase === true) charCodes = charCodes.concat(UPPERCASE_CHAR_CODES)
+  if(symbols === true) charCodes.concat(symbol_char_codes)
+  if(numbers === true) charCodes.concat(number_char_codes)
   var pwdLength = prompt("How many characters would you like in your password? Choose a number between 8 and 128");
   
   if (pwdLength > 128 || pwdLength < 8) {
@@ -67,11 +41,21 @@ function generatePassword() {
     if (symbols === false && numbers === false && uppercase === false && lowercase === false) {
       alert("Please choose at leaset one character type to proceed.");
     }
-    
-    for (i = true; i < pwdLength; i++) {
-      var x = Math.floor(Math.random() * chars.length);
-      password += chars.charAt(x);
-    }
   }
-  return password;
+    const passwordCharacters = []
+    for (let i = 0; i < pwdLength, i++;) {
+      const characterCode = charCodes[Math.floor(Math.random() * charCodes.length)]
+      passwordCharacters.push(String.fromCharCode(characterCode))
+      
+    }
+  
+  return passwordCharacters.join("")
+};
+
+function fromLowToHigh(low, high) {
+  const array = []
+  for (let i = low; i<= high; i++) {
+  array.push(i)
+}
+return array
 }
