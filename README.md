@@ -6,10 +6,6 @@ This is a random password generator. Upon clicking the generate button, the user
 
 <img src="./assets/css/03-javascript-homework-demo.png" />
 
-## Issues
-
-I am unable to get the password to properly display. 
-
 ## Contributors
 
 Noah Tidwell, with pre written code from Trilogy Education Services.
