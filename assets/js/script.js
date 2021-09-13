@@ -15,41 +15,34 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
  //Password values
- var symbols = "~!@#$%^&*()-_=+:;,<>?"
- var numbers = "0123456789"
- var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
- var lowercase = "abcdefghijklmnopqrstuvwxyz"
- var pwd = "";
-
- // Add symbol character to pwd string
- function addSymbol(x) {
-   if (x===true) {
-     pwd = pwd.concat(symbols)
-   }
+ const values = {
+  symbols: "~!@#$%^&*()-_=+:;,<>?",
+  numbers: "0123456789",
+  uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  lowercase:"abcdefghijklmnopqrstuvwxyz"
  }
-
- // Add Number to pwd String
- function addNumber(x) {
-   if (x===true) {
-     pwd = pwd.concat(numbers)
-   }
- }
-
- // Add uppercase letter to pwd string
- function addUpper(x) {
-   if (x===true) {
-     pwd = pwd.concat(uppercase)
-   }
- }
-
- // Add lowercase letter to pwd string
- function addLower(x) {
-   if (x===true) {
-     pwd = pwd.concat(lowercase)
-   }
- }
+  
+const getValues = [
+  function addUpper() {
+    return values.uppercase[Math.floor(Math.random()* values.uppercase.length)];
+  },
+  function addLower() {
+    return values.lowercase[Math.floor(Math.random() * values.lowercase.length)];
+  },
+  function addNumber() {
+    return values.numbers[Math.floor(Math.random() * values.numbers.length)];
+  },
+  function addSymbols() {
+    return values.symbols[Math.floor(Math.random() * values.symbols.length)];
+  }
+];
+ 
+ 
 // Generate password Logic based on character Input
 function generatePassword() {
+
+  pwd = ""
+
   var pwdLength = prompt("How many characters would you like in your password? Choose a number between 8 and 128");
   
   if (pwdLength > 128 || pwdLength < 8) {
@@ -58,36 +51,25 @@ function generatePassword() {
 
   else if (pwdLength >= 8 && pwdLength <= 128) {
 
-    var symConfirm = confirm("Include symbols in your password?")
-      addSymbol(symbols)
-      console.log(pwd)
-
-    var numConfirm = confirm("Include numbers in your password?")
-      addNumber(numbers)
-      console.log(pwd)
-
-    var upConfirm = confirm("Include uppercase letters in your password?")
-      addUpper(uppercase)
-      console.log(pwd)
-
-    var lowConfirm = confirm("Include lowercase letters in your password?")
-      addLower(lowercase)
-      console.log(pwd)
-  
+        var symConfirm = confirm("Include symbols in your password?")
+        var numConfirm = confirm("Include numbers in your password?")
+        var upConfirm = confirm("Include uppercase letters in your password?")
+        var lowConfirm = confirm("Include lowercase letters in your password?")
     
     if (symConfirm === false && numConfirm === false && upConfirm === false && lowConfirm === false) {
       alert("Please choose at leaset one character type to proceed.");
-        symConfirm = confirm("Include symbols in your password?")
-        numConfirm = confirm("Include numbers in your password?")
-        upConfirm = confirm("Include uppercase letters in your password?")
-        lowConfirm = confirm("Include lowercase letters in your password?")
+        var symConfirm = confirm("Include symbols in your password?")
+        var numConfirm = confirm("Include numbers in your password?")
+        var upConfirm = confirm("Include uppercase letters in your password?")
+        var lowConfirm = confirm("Include lowercase letters in your password?")
       }
     
-    for (i = 1; i <= pwdLength; i++) {
-      var z = Math.floor(Math.random() * pwd.length + 1);
-      output += pwd.charAt(z)
+  
     }
- return output;
+    for (i = 0; i <= pwdLength; i++) {
+      valueToAdd = getValues[Math.floor(Math.random() * getValues.length)];
+      pwd += valueToAdd();
     }
-
+    return pwd;
+    
 }
